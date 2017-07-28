@@ -1,0 +1,10 @@
+<h1>Create a new Store</h1>
+
+<%= simple_form_for @store do |f| %>
+  <%= f.input :storename, label: 'Store Name' %>
+  <%= f.input :description %>
+  <%= f.input :location %>
+  <%= f.input :phonenumber,label: 'Phone Number', input_html: { maxlength: 10 }, as: :integer %>
+  <br />
+  <%= f.submit 'Create', class: 'btn btn-primary' %>
+<% end %>

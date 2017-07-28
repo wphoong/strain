@@ -1,0 +1,11 @@
+<h1>Check out all the stores</h1>
+
+<% @stores.each do |store| %>
+  <div class="offset-1">
+    <p><%= store.storename %></p>
+    <p><%= store.location %></p>
+    <% if store.user.present? %>
+      <small>Contact: <%= store.user.name %></small>
+    <% end %>
+  </div>
+<% end %>

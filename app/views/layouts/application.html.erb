@@ -9,23 +9,32 @@
   </head>
 
   <body>
-    <ul class="navbar-nav offset-1">
-      <% if user_signed_in? %>
-        <li class="nav-item">
-           <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
-        </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %>
-        </li>
-      <% end %>
-    </ul>
+    <nav class="navbar">
+      <ul class="navbar-nav offset-1">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= current_user.name %>
+          </li>
+          <li class="nav-item">
+             <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if notice.present? %>
+      <p class="alert alert-info text-center"><%= notice %></p>
+    <% end %>
+    <% if alert.present? %>
+      <p class="alert alert-danger text-center"><%= alert %></p>
+    <% end %>
 
     <%= yield %>
   </body>
