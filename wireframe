@@ -1,0 +1,58 @@
+
+Strain app wireframe
+
+What does the app do?
+Strain is a marketplace for cannabis
+
+Users can have the attribute of two types:
+Seller and Buyer
+
+Models:
+User model: Name
+            Email
+            Password
+
+Product model: Name
+               Price
+               Strain
+               Type
+               Effects
+               Description
+
+
+Controller:
+Seller can create, read, update, destroy products they are selling
+
+Buyers can only view
+
+static_pages#index
+show index page
+
+
+
+
+Views:
+Every storefront will have a sidebar with a filter for strains
+Can see Cart
+
+Seller - Index page
+          View his own store front, which lists products
+          Create a new listing - Modal?
+          Update a listing - Modal?
+          destroy a listing - button with confirm
+
+        Product index
+          Show info about product
+
+
+
+
+Buyer - View stores and it's product
+        Each product should show buttons to add to cart, and amount
+
+
+
+
+
+
+Tasks:
