@@ -1,8 +1,10 @@
 <h1>Check out all the stores</h1>
 
+<%= link_to 'Create a new Store', new_store_path, class: 'btn btn-success btn-sm' %>
+
 <% @stores.each do |store| %>
-  <div class="offset-1">
-    <p><%= store.storename %></p>
+  <div class="offset-1 col-10 stores">
+    <p><%= link_to store.storename, store_path(store) %></p>
     <p><%= store.location %></p>
     <% if store.user.present? %>
       <small>Contact: <%= store.user.name %></small>
