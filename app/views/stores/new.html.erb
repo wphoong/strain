@@ -1,10 +1,10 @@
 <h1>Create a new Store</h1>
 
 <%= simple_form_for @store do |f| %>
-  <%= f.input :storename, label: 'Store Name' %>
-  <%= f.input :description %>
-  <%= f.input :location %>
-  <%= f.input :phonenumber,label: 'Phone Number', input_html: { maxlength: 10 }, as: :integer %>
+  <%= f.input :storename, label: 'Store Name', required: true, autofocus: true %>
+  <%= f.input :description, required: true, autofocus: true %>
+  <%= f.input :location, required: true, autofocus: true %>
+  <%= f.input :phonenumber, label: 'Phone Number', as: :tel, input_html: { maxlength: 10 }, required: true, autofocus: true %>
   <br />
   <%= f.submit 'Create', class: 'btn btn-primary' %>
 <% end %>
