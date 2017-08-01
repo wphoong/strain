@@ -3,7 +3,7 @@ FactoryGirl.define do
     storename 'lul'
     description 'wtf'
     location 'LA'
-    phone '123'
+    phonenumber '123'
 
     association :user
   end

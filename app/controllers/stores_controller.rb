@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
 
   def index
     @stores = Store.all
@@ -19,6 +19,20 @@ class StoresController < ApplicationController
 
   def show
     @stores = Store.find(params[:id])
+  end
+
+  def edit
+    @store = Store.find(params[:id])
+    return render_not_found if @store.blank?
+    return render_not_found(:forbidden) if @store.user != current_user
+  end
+
+  def update
+    @store = Store.find(params[:id])
+    return render_not_found if @store.blank?
+    return render_not_found(:forbidden) if @store.user != current_user
+    @store.update_attributes(store_params)
+    redirect_to store_path(@store) if @store.valid?
   end
 
   private
