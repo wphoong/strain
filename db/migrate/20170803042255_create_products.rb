@@ -6,7 +6,7 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.text :description
       t.text :effects
       t.integer :user_id
-      t.intger :store_id
+      t.integer :store_id
       t.timestamps
     end
     add_index :products, [:user_id, :store_id]
