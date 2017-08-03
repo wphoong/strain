@@ -10,6 +10,6 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.timestamps
     end
     add_index :products, [:user_id, :store_id]
-    add_index :product, :store_id
+    add_index :products, :store_id
   end
 end
