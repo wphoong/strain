@@ -49,20 +49,33 @@ RSpec.describe StoresController, type: :controller do
       get :show, params: { id: store.id }
       expect(response).to have_http_status(:success)
     end
+    it 'should return 400 error if not found' do
+      get :show, params: { id: 'LUL' }
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe 'stores#edit' do
-    it 'should require users to be logged in' do
+    it 'should require store creator to be logged in' do
       get :edit, params: { id: store.id }
       expect(response).to redirect_to new_user_session_path
     end
-    it 'should not allow unauthenticated user edit a gram' do
+    it 'should only allow store creator to edit a store' do
       sign_in user
       get :edit, params: { id: store.id }
       expect(response).to have_http_status(:forbidden)
     end
+    it 'should allow store creator to view edit form' do
+      sign_in store.user
+      get :edit, params: { id: store.id }
+      expect(response).to have_http_status(:success)
+    end
+    it 'should return 400 error if not found' do
+      sign_in store.user
+      get :edit, params: { id: 'LUL' }
+      expect(response).to have_http_status(:not_found)
+    end
   end
-
   describe 'stores#update' do
     it 'should update the information of a store' do
       sign_in store.user
@@ -70,6 +83,37 @@ RSpec.describe StoresController, type: :controller do
       expect(response).to redirect_to store_path(store.id)
       store.reload
       expect(store.storename).to eq 'HAHHA'
+    end
+    it 'should not allow unauthenticated user update a gram' do
+      sign_in user
+      put :update, params: { id: store.id }
+      expect(response).to have_http_status(:forbidden)
+    end
+    it 'should return 400 error if not found' do
+      sign_in user
+      put :update, params: { id: 'haha' }
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+  describe 'stores#destroy' do
+    it 'should allow store creator to delete their store' do
+      sign_in store.user
+      delete :destroy, params: { id: store.id }
+      store.user.update(has_store: false)
+      expect(response).to redirect_to stores_path
+      store1 = Store.find_by_id(store.id)
+      expect(store1).to eq nil
+      expect(store.user.has_store).to eq false
+    end
+    it 'should only allow store creator to destroy their store' do
+      sign_in user
+      delete :destroy, params: { id: store.id }
+      expect(response).to have_http_status(:forbidden)
+    end
+    it 'should return 400 error if not found' do
+      sign_in user
+      delete :destroy, params: { id:'wtf' }
+      expect(response).to have_http_status(:not_found)
     end
   end
 end

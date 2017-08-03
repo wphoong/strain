@@ -18,21 +18,31 @@ class StoresController < ApplicationController
   end
 
   def show
-    @stores = Store.find(params[:id])
+    @stores = Store.find_by_id(params[:id])
+    return render_not_found if @stores.blank?
   end
 
   def edit
-    @store = Store.find(params[:id])
+    @store = Store.find_by_id(params[:id])
     return render_not_found if @store.blank?
     return render_not_found(:forbidden) if @store.user != current_user
   end
 
   def update
-    @store = Store.find(params[:id])
+    @store = Store.find_by_id(params[:id])
     return render_not_found if @store.blank?
     return render_not_found(:forbidden) if @store.user != current_user
     @store.update_attributes(store_params)
     redirect_to store_path(@store) if @store.valid?
+  end
+
+  def destroy
+    @store = Store.find_by_id(params[:id])
+    return render_not_found if @store.blank?
+    return render_not_found(:forbidden) if @store.user != current_user
+    @store.user.update(has_store: false)
+    @store.destroy
+    redirect_to stores_path
   end
 
   private
