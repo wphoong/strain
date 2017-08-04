@@ -35,6 +35,15 @@ class ProductsController < ApplicationController
     return render_not_found(:forbidden) if @store.user != current_user
   end
 
+  def update
+    @store = Store.find_by_id(params[:store_id])
+    @product = Product.find_by_id(params[:id])
+    return render_not_found if @product.blank?
+    return render_not_found(:forbidden) if @store.user != current_user
+    @product.update_attributes(product_params)
+    redirect_to store_path(@store) if @store.valid?
+  end
+
   private
 
   def product_params

@@ -87,16 +87,30 @@ RSpec.describe ProductsController, type: :controller do
     end
     describe 'products#update' do
       it 'should allow store creator to update their products' do
-
+        sign_in store.user
+        patch :update, params: { store_id: store.id, id: product.id,
+          product: {
+            strain: 'Jebaited Sucka'
+            }
+          }
+        expect(response).to redirect_to store_path(store.id)
+        product.reload
+        product1 = Product.find_by_id(product.id)
+        expect(product1.strain).to eq('Jebaited Sucka')
       end
       it 'should only allow store creator to update his products' do
-
+        sign_in user
+        patch :update, params: { store_id: store.id, id: product.id }
+        expect(response).to have_http_status(:forbidden)
       end
       it 'should show 400 error if not found' do
-
+        sign_in store.user
+        patch :update, params: { store_id: store.id, id: 'MonkaS' }
+        expect(response).to have_http_status(:not_found)
       end
       it 'should require users to be logged in' do
-
+        patch :update, params: { store_id: store.id, id: product.id }
+        expect(response).to redirect_to new_user_session_path
       end
     end
 end
