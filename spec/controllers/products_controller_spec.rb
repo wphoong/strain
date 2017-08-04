@@ -66,9 +66,30 @@ RSpec.describe ProductsController, type: :controller do
   end
     describe 'products#edit' do
       it 'should allow store creator to edit his products' do
-
+        sign_in store.user
+        get :edit, params: { store_id: store.id, id: product.id }
+        expect(response).to have_http_status(:success)
       end
       it 'should only allow store creator to edit his products' do
+        sign_in user
+        get :edit, params: { store_id: store.id, id: product.id }
+        expect(response).to have_http_status(:forbidden)
+      end
+      it 'should show 400 error if not found' do
+        sign_in store.user
+        get :edit, params: { store_id: store.id, id: 'KAPPA123' }
+        expect(response).to have_http_status(:not_found)
+      end
+      it 'should require users to be logged in' do
+        get :edit, params: { store_id: store.id, id: product.id }
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+    describe 'products#update' do
+      it 'should allow store creator to update their products' do
+
+      end
+      it 'should only allow store creator to update his products' do
 
       end
       it 'should show 400 error if not found' do

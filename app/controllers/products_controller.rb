@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @products = Product.all
@@ -26,6 +26,13 @@ class ProductsController < ApplicationController
     @store = Store.find_by_id(params[:store_id])
     @product = Product.find_by_id(params[:id])
     return render_not_found if @product.blank?
+  end
+
+  def edit
+    @store = Store.find_by_id(params[:store_id])
+    @product = Product.find_by_id(params[:id])
+    return render_not_found if @product.blank?
+    return render_not_found(:forbidden) if @store.user != current_user
   end
 
   private

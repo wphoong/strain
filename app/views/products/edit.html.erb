@@ -1,0 +1,10 @@
+<h1>Edit your product</h1>
+
+<%= simple_form_for @product, url: store_products_path(@store) do |f| %>
+  <%= f.input :strain, required: true, autofocus: true %>
+  <%= f.input :straintype, required: true, autofocus: true %>
+  <%= f.input :effects, required: true, autofocus: true %>
+  <%= f.input :description, required: true, autofocus: true %>
+  <br />
+  <%= f.submit 'Update', class: 'btn btn-success' %>
+<% end %>
