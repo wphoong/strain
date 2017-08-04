@@ -113,4 +113,25 @@ RSpec.describe ProductsController, type: :controller do
         expect(response).to redirect_to new_user_session_path
       end
     end
+    describe 'products#destroy' do
+      it 'should allow store creator to delete products' do
+        sign_in store.user
+        delete :destroy, params: { store_id: store.id, id: product.id }
+        expect(response).to redirect_to store_path(store.id)
+      end
+      it 'should only allow store creators to delete products' do
+        sign_in user
+        delete :destroy, params: { store_id: store.id, id: product.id }
+        expect(response).to have_http_status(:forbidden)
+      end
+      it 'should show 400 error if not found' do
+        sign_in store.user
+        delete :destroy, params: { store_id: store.id, id: 'MonkaS' }
+        expect(response).to have_http_status(:not_found)
+      end
+      it 'should require users to be logged in' do
+        delete :destroy, params: { store_id: store.id, id: product.id }
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
 end

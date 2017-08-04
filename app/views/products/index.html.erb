@@ -6,20 +6,3 @@
     <p><%= product.straintype %></p>
   </div>
 <% end %>
-
-<button id="show">Click me for more info</button>
-
-<script>
-
-$(function(){
-  $("#show").on("click", function(){
-    $.get("https://www.cannabisreports.com/api/v1.0/strains", function(data){
-      $.each(data.data, function(i, item){
-        console.log(item.name);
-      });
-    });
-  });
-});
-
-
-</script>
