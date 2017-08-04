@@ -1,9 +1,10 @@
 FactoryGirl.define do
   factory :product do
     strain 'OG'
-    type 'Sativa'
-    effect 'dank'
+    straintype 'Sativa'
+    effects 'dank'
     description 'Smells like pin'
     association :store
+    association :user
   end
 end

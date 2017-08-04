@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ProductsController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
   let(:store) { FactoryGirl.create(:store) }
-  let(:product) { FactoryGirl.create(:store) }
+  let(:product) { FactoryGirl.create(:product) }
 
   describe 'products#index' do
     it 'should allow viewers to see all products' do
@@ -41,8 +41,8 @@ RSpec.describe ProductsController, type: :controller do
          }
       expect(response).to redirect_to store_path(store.id)
       product.reload
-      product1 = Product.all
-      expect(product1.length).to eq(1)
+      product1 = Product.first
+      expect(product1.strain).to eq('KUSH')
     end
     it 'should require users to be logged in' do
       post :create, params: { store_id: store, product: { strain: 'lul' } }
@@ -54,14 +54,14 @@ RSpec.describe ProductsController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
   end
-
   describe 'products#show' do
     it 'should load show page for a product' do
       get :show, params: { store_id: store.id, id: product.id }
       expect(response).to have_http_status(:success)
     end
     it 'should raise 400 error message when product is not found' do
-
+      get :show, params: { store_id: store.id, id: 'KAPPA' }
+      expect(response).to have_http_status(:not_found)
     end
   end
 end

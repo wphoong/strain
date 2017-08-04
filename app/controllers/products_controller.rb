@@ -23,8 +23,9 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @store = Store.find_by(id: params[:store_id])
-    @product = Product.find_by(id: params[:id])
+    @store = Store.find_by_id(params[:store_id])
+    @product = Product.find_by_id(params[:id])
+    return render_not_found if @product.blank?
   end
 
   private
