@@ -2,7 +2,7 @@
 
 <% @products.each do |product| %>
   <div>
-    <h2><%= product.strain %></h2>
+    <h2><%= link_to product.strain, store_product_path(product.store, product) %></h2>
     <p><%= product.straintype %></p>
   </div>
 <% end %>

@@ -1,10 +1,16 @@
 <h1>Product Page</h1>
 
+<%= link_to 'Edit Product', edit_store_product_path(@store, @product), class: 'btn btn-info' %>
+<%= link_to 'Delete Product', store_product_path(@store, @product), method: :delete, data: { confirm: 'Are you sure you want to delete this product?'}, class: 'btn btn-danger' %>
+
+<h2><%= @product.strain %></h2>
+<p><%= @product.straintype %></p>
+<p><%= @product.effects %></p>
+</p><%= @product.description %></p>
 
 
-<%= @product.strain %>
-
-<button id="show">Click me for more info</button>
+<button id="show" class="btn btn-primary">Click me for more info</button>
+<div id="cannabis"></div>
 <ul id="info"></ul>
 
 
@@ -12,7 +18,8 @@
 
 $(function(){
   $("#show").on("click", function(){
-    $(this).toggle(function(){
+    $("#cannabis").html("<h4>From Cannabisreports.com:</h4>");
+    $(this).fadeOut(function(){
       $.get("https://www.cannabisreports.com/api/v1.0/strains", function(data){
         $.each(data.data, function(index, item){
           var itemNameCase = item.name.toLowerCase();
@@ -27,7 +34,6 @@ $(function(){
             });
             var lineage = "<li>Lineage - " + countries + "</li>";
 
-            $("#info").append("<li>From Cannabisreports.com: </li>");
             $("#info").append(itemName);
             $("#info").append(ucpc);
             $("#info").append(genetics);

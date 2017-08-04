@@ -14,3 +14,9 @@
 <h1>Products</h1>
 
 <%= link_to 'Add a new Product', new_store_product_path(@stores), class: 'btn btn-info' %>
+
+<% @stores.products.each do |product| %>
+  <div>
+    <h3><%= link_to product.strain, store_product_path(@stores, product) %></h3>
+  </div>
+<% end %>
