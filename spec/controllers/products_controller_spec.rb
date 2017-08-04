@@ -64,4 +64,18 @@ RSpec.describe ProductsController, type: :controller do
       expect(response).to have_http_status(:not_found)
     end
   end
+    describe 'products#edit' do
+      it 'should allow store creator to edit his products' do
+
+      end
+      it 'should only allow store creator to edit his products' do
+
+      end
+      it 'should show 400 error if not found' do
+
+      end
+      it 'should require users to be logged in' do
+
+      end
+    end
 end
