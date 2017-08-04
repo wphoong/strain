@@ -4,7 +4,6 @@ FactoryGirl.define do
     description 'wtf'
     location 'LA'
     phonenumber '123'
-
     association :user
   end
 end
