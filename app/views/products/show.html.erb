@@ -1,0 +1,39 @@
+<h1>Product Page</h1>
+
+<%= @product.strain %>
+
+<button id="show">Click me for more info</button>
+<ul id="info"></ul>
+
+
+<script>
+
+$(function(){
+  $("#show").on("click", function(){
+    $(this).toggle(function(){
+      $.get("https://www.cannabisreports.com/api/v1.0/strains", function(data){
+        $.each(data.data, function(index, item){
+          var itemNameCase = item.name.toLowerCase();
+          console.log(itemNameCase);
+          if (itemNameCase == "<%= @product.strain.downcase %>") {
+            var itemName = "<li>Strain - " + item.name + "</li>";
+            var ucpc = "<li>UCPC - " + item.ucpc + "</li>";
+            var genetics = "<li>Genetics - " + item.genetics.names + "</li>";
+            var countries = [];
+            $.each(item.lineage, function(i, country){
+              countries.push(i);
+            });
+            var lineage = "<li>Lineage - " + countries + "</li>";
+
+            $("#info").append("<li>From Cannabisreports.com: </li>");
+            $("#info").append(itemName);
+            $("#info").append(ucpc);
+            $("#info").append(genetics);
+            $("#info").append(lineage);
+          }
+        });
+      });
+    });
+  });
+});
+</script>

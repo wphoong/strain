@@ -22,6 +22,11 @@ class ProductsController < ApplicationController
     redirect_to store_path(@store)
   end
 
+  def show
+    @store = Store.find_by(id: params[:store_id])
+    @product = Product.find_by(id: params[:id])
+  end
+
   private
 
   def product_params

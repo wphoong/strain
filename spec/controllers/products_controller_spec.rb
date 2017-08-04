@@ -54,4 +54,14 @@ RSpec.describe ProductsController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
   end
+
+  describe 'products#show' do
+    it 'should load show page for a product' do
+      get :show, params: { store_id: store.id, id: product.id }
+      expect(response).to have_http_status(:success)
+    end
+    it 'should raise 400 error message when product is not found' do
+
+    end
+  end
 end
