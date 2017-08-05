@@ -2,7 +2,7 @@
 
 <%= simple_form_for @product, url: store_product_path(@store) do |f| %>
   <%= f.input :strain, required: true, autofocus: true %>
-  <%= f.input :straintype, required: true, autofocus: true %>
+  <%= f.input :straintype, as: :select, collection: Product::STRAINTYPES, required: true, autofocus: true %>
   <%= f.input :effects, required: true, autofocus: true %>
   <%= f.input :description, required: true, autofocus: true %>
   <br />
