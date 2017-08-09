@@ -1,8 +1,40 @@
 @import "bootstrap";
-@-ms-viewport{
+@-ms-viewport {
   width: device-width;
   }
 
+.bg {
+  background: url('nature.jpeg')
+  no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 .stores {
   border: 1px solid;
+}
+
+.jumbotron {
+  margin-top: 20vh;
+  background-color: rgba(107,142,35, 0.5);
+}
+
+.landing {
+  color: #ffffff;
+}
+
+.homepage-btn {
+  margin-top: 50vh;
 }

@@ -1,5 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  rescue_from ActionController::InvalidAuthenticityToken, with: :redirect_to_referer_or_path
+
+  def redirect_to_referer_or_path
+    flash[:notice] = "Please try again."
+    redirect_to request.referer
+  end
 
   def render_not_found(status = :not_found)
     render plain: "#{status.to_s.titleize} :(", status: status

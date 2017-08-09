@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @stores = Store.all
@@ -52,6 +52,7 @@ class StoresController < ApplicationController
   end
 
   def check_for_store_creation
+    flash[:notice] = "You already have a store."
     redirect_to root_path if current_user.has_store == true
     false
   end
